@@ -1,0 +1,22 @@
+﻿@{
+}
+
+@model BlogPost
+
+<h3>Post ekle</h3>
+
+<form class="mt-3" action="/Admin/Home/Add" method="post">
+    <div class="mb-3">
+        <label class="form-label">Başlık</label>
+        <input type="text" class="form-control" asp-for="Title">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Özet</label>
+        <textarea rows="10" class="form-control" asp-for="Summary"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">İçerik</label>
+        <textarea rows="10" class="form-control" asp-for="Content"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
