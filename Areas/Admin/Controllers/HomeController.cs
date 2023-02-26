@@ -1,10 +1,12 @@
 ﻿using Area.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MvcEf;
 
 namespace Area.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [LoginKontrol]
     public class HomeController : Controller
     {
         private CmsContext _context;
@@ -15,6 +17,12 @@ namespace Area.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
+            //kişi login mi?
+            //if(HttpContext.Session.GetInt32("LoginMi") == null)
+            //{
+            //    return Redirect("/Admin/Auth/Index");
+            //}
+
             List<BlogPost> postlar = _context.BlogPost.ToList();
             return View(postlar);
         }
@@ -47,6 +55,12 @@ namespace Area.Areas.Admin.Controllers
             _context.BlogPost.Update(model);
             _context.SaveChanges();
 
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            _context.Database.ExecuteSqlRaw($"delete from BlogPost where Id = {id}");
             return RedirectToAction("Index");
         }
     }
